@@ -43,7 +43,7 @@
     <Reference Include="System.Core" />
     <Reference Include="Mono.Android" />
     <Reference Include="SimpleStorage.Droid">
-      <HintPath>..\..\lib\SimpleStorage.Droid\SimpleStorage.Droid.dll</HintPath>
+      <HintPath>Components\simple-storage-1.0\lib\android\SimpleStorage.Droid.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -62,4 +62,11 @@
     <AndroidResource Include="Resources\drawable\Icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
+  <ItemGroup>
+    <XamarinComponentReference Include="simple-storage">
+      <InstallationInProgress>False</InstallationInProgress>
+      <Version>1.0</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+  </ItemGroup>
 </Project>

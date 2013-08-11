@@ -1,14 +1,16 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="DroidSimpleStorage.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="../SimpleStorage.Shared/SimpleStorage.cs">
     <Files>
-      <File FileName="DroidSimpleStorage.cs" Line="16" Column="10" />
-      <File FileName="../SimpleStorage.Shared/SimpleStorage.cs" Line="1" Column="1" />
+      <File FileName="DroidSimpleStorage.cs" Line="1" Column="1" />
+      <File FileName="../SimpleStorage.Shared/SimpleStorage.cs" Line="119" Column="25" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="SimpleStorage.Droid" expanded="True" selected="True" />
+          <Node name="SimpleStorage.Droid" expanded="True">
+            <Node name="SimpleStorage.cs" selected="True" />
+          </Node>
         </State>
       </Pad>
       <Pad Id="ClassPad">

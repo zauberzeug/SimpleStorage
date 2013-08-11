@@ -82,7 +82,7 @@
     <Reference Include="monotouch" />
     <Reference Include="MonoTouch.Dialog-1" />
     <Reference Include="SimpleStorage.iOS">
-      <HintPath>..\..\lib\SimpleStorage.iOS\SimpleStorage.iOS.dll</HintPath>
+      <HintPath>Components\simple-storage-1.0\lib\ios\SimpleStorage.iOS.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -96,4 +96,11 @@
     <Compile Include="AppDelegate.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <XamarinComponentReference Include="simple-storage">
+      <InstallationInProgress>False</InstallationInProgress>
+      <Version>1.0</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+  </ItemGroup>
 </Project>

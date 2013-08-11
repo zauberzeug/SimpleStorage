@@ -9,7 +9,7 @@ namespace PerpetualEngine.Storage
         {
         }
 
-        override public void Save(string key, string value)
+        override public void Put(string key, string value)
         {
             if (value == null) 
                 Delete(key);
@@ -18,7 +18,7 @@ namespace PerpetualEngine.Storage
             NSUserDefaults.StandardUserDefaults.Synchronize();
         }
 
-        override public string Load(string key)
+        override public string Get(string key)
         {
             return NSUserDefaults.StandardUserDefaults.StringForKey(Group + "_" + key);
         }

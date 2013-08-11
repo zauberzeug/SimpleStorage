@@ -1,14 +1,17 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPhone.6.0" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="AppDelegate.cs">
+  <MonoDevelop.Ide.Workbench>
     <Files>
-      <File FileName="AppDelegate.cs" Line="44" Column="13" />
+      <File FileName="AppDelegate.cs" Line="36" Column="24" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="SimpleStorageDemo.iOS" expanded="True" selected="True">
+          <Node name="SimpleStorageDemo.iOS" expanded="True">
             <Node name="References" expanded="True" />
+            <Node name="ComponentReferenceFolder" expanded="True">
+              <Node name="ComponentReference" selected="True" />
+            </Node>
           </Node>
         </State>
       </Pad>

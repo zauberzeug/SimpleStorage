@@ -10,6 +10,13 @@ namespace PerpetualEngine.Storage
 
         protected string Group { get; set; }
 
+        /// <summary>
+        /// Creates a new Storage. It's ok to use the plattform specifc constructors 
+        /// as long as the code depends on a plattorm anyway. But if you have shared
+        /// code, consider using the EditGroup(groupName) delegate as described in
+        /// the GettingStarted-Component-Description.
+        /// </summary>
+        /// <param name="groupName">the namespace for this storage object</param>
         public SimpleStorage(string groupName)
         {
             Group = groupName;
@@ -26,17 +33,17 @@ namespace PerpetualEngine.Storage
         /// </summary>
         /// <param name="key">Idenifizierung</param>
         /// <param name="value">Der Wert</param>
-        public abstract void Save(string key, string value);
+        public abstract void Put(string key, string value);
 
         /// <summary>
         /// Läd einen abgespeicherten Wert.
         /// </summary>
         /// <param name="key">null, wenn kein Wert gespeichert ist, sonst der Wert</param>
-        public abstract string Load(string key);
+        public abstract string Get(string key);
 
-        public string Load(string key, string defaultValue)
+        public string Get(string key, string defaultValue)
         {
-            var value = Load(key);
+            var value = Get(key);
             if (value == null)
                 return defaultValue;
             else
@@ -45,31 +52,31 @@ namespace PerpetualEngine.Storage
 
         public abstract void Delete(string key);
 
-        public void Save(string key, DateTime? value)
+        public void Put(string key, DateTime? value)
         {
             if (value == null)
                 Delete(key);
             var data = value.ToString();
-            Save(key, data);
+            Put(key, data);
         }
 
-        public void Save(string key, TimeSpan value)
+        public void Put(string key, TimeSpan value)
         {
             var data = value.ToString();
-            Save(key, data);
+            Put(key, data);
         }
 
-        void Save(string key, object value)
+        void Put(string key, object value)
         {
 
             var data = SerializeObject(value);
-            Save(key, data);
+            Put(key, data);
         }
 
-        Nullable<T> Load<T>(string key) where T : struct
+        Nullable<T> Get<T>(string key) where T : struct
         {
             throw new  NotImplementedException("has problem when reading string (http://stackoverflow.com/questions/8625705/xmlexception-text-node-cannot-appear-in-this-state)");
-            var data = Load(key);
+            var data = Get(key);
             Console.WriteLine("loading: " + data);
             if (data == null)
                 return null;
@@ -81,9 +88,9 @@ namespace PerpetualEngine.Storage
             }
         }
 
-        public DateTime? LoadDateTime(string key)
+        public DateTime? GetDateTime(string key)
         {
-            var data = Load(key);
+            var data = Get(key);
             if (data == null)
                 return null;
             try {
@@ -94,9 +101,9 @@ namespace PerpetualEngine.Storage
             }
         }
 
-        public TimeSpan LoadTimeSpan(string key, TimeSpan defaultValue)
+        public TimeSpan GetTimeSpan(string key, TimeSpan defaultValue)
         {
-            var data = Load(key);
+            var data = Get(key);
             if (data == null)
                 return defaultValue;
             try {

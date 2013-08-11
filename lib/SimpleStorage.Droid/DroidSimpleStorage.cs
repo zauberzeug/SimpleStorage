@@ -12,12 +12,12 @@ namespace PerpetualEngine.Storage
             Prefs = c.GetSharedPreferences(groupName, FileCreationMode.Private);
         }
 
-        public override string Load(string key)
+        public override string Get(string key)
         {
             return Prefs.GetString(key, null);
         }
 
-        public override void Save(string key, string value)
+        public override void Put(string key, string value)
         {
             Prefs.Edit().PutString(key, value).Commit();
         }

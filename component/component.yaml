@@ -7,15 +7,14 @@ license: License.md
 icons: 
   - icons/simple-storage_128x128.png
   - icons/simple-storage_512x512.png
-publisher-url: www.perpetual-mobile.de
+publisher-url: http://www.perpetual-mobile.de
 libraries: 
-  ios: ../lib/ios/SimpleStorage.iOS.dll
+  ios: ../lib/SimpleStorage.iOS/SimpleStorage.iOS.dll
+  android: ../lib/SimpleStorage.Droid/SimpleStorage.Droid.dll
 summary: A simple plattform independend key/value storage
-details: Details.md
-screenshots: 
-  - screenshots/screenshot1.png
+details: GettingStarted.md
 getting-started: GettingStarted.md
 version: "1.0"
 samples: 
   iOS Sample: ../samples/SimpleStorageDemo.iOS/SimpleStorageDemo.iOS.sln
-...
+  Android Sample: ../samples/SimpleStorageDemo.Droid/SimpleStorageDemo.Droid.sln
