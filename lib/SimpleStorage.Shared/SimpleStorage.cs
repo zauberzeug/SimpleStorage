@@ -23,24 +23,25 @@ namespace PerpetualEngine.Storage
         }
 
         /// <summary>
-        /// plattform specific instance to save/load values within a given group
+        /// plattform specific instance to save/load values within a given group (eg. namespace)
         /// </summary>
         /// <value>A delegate expecting a group name and returning a plattform specific variant of SimpleStorage</value>
         public static Func<string, SimpleStorage> EditGroup { get; set; }
 
         /// <summary>
-        /// Speichert einen Wert.
+        /// Persists a value with given key.
         /// </summary>
-        /// <param name="key">Idenifizierung</param>
-        /// <param name="value">Der Wert</param>
         public abstract void Put(string key, string value);
 
         /// <summary>
-        /// Läd einen abgespeicherten Wert.
+        /// Retrieves value with given key.
         /// </summary>
-        /// <param name="key">null, wenn kein Wert gespeichert ist, sonst der Wert</param>
+        /// <returns>null, if key can not be found</returns>
         public abstract string Get(string key);
 
+        /// <summary>
+        /// Retrives a value with given key. If key can not be found, defaultValue is returned instead of null.
+        /// </summary>
         public string Get(string key, string defaultValue)
         {
             var value = Get(key);
@@ -50,6 +51,9 @@ namespace PerpetualEngine.Storage
                 return value;
         }
 
+        /// <summary>
+        /// Delete the specified key.
+        /// </summary>
         public abstract void Delete(string key);
 
         public void Put(string key, DateTime? value)
@@ -68,7 +72,6 @@ namespace PerpetualEngine.Storage
 
         void Put(string key, object value)
         {
-
             var data = SerializeObject(value);
             Put(key, data);
         }
