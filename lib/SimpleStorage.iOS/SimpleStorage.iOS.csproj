@@ -35,6 +35,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="monotouch" />
+    <Reference Include="MonoTouch.NUnitLite" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -45,5 +46,9 @@
     <Compile Include="..\SimpleStorage.Shared\SimpleStorage.cs">
       <Link>SimpleStorage.cs</Link>
     </Compile>
+    <Compile Include="..\SimpleStorage.Shared\Tests.cs">
+      <Link>Tests.cs</Link>
+    </Compile>
+    <Compile Include="Tests.iOS.cs" />
   </ItemGroup>
 </Project>
