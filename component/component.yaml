@@ -11,7 +11,7 @@ publisher-url: http://www.perpetual-mobile.de
 libraries: 
   ios: ../lib/SimpleStorage.iOS/SimpleStorage.iOS.dll
   android: ../lib/SimpleStorage.Droid/SimpleStorage.Droid.dll
-summary: A simple plattform independend key/value storage
+summary: Simple platform independent key/value storage
 details: GettingStarted.md
 getting-started: GettingStarted.md
 version: "1.0"
