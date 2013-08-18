@@ -7,15 +7,7 @@ namespace Tests
     [TestFixture]
     public class AsyncTests
     {
-       
-        [SetUp]
-        public void SetUp()
-        {
-            SimpleStorage.EditGroup = (name) => {
-                return new iOSSimpleStorage(name);
-            };
-        }
-
+     
         [Test]
         public void TestLifeCycleOfStringValue()
         {

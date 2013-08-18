@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PerpetualEngine.Storage
 {
-    public abstract class SimpleStorage
+    public abstract partial class SimpleStorage
     {
 
         protected string Group { get; set; }

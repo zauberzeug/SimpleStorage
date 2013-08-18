@@ -19,18 +19,19 @@ namespace SimpleStorageDemo.Droid
 
             SetContentView(Resource.Layout.Main);
 
-            // set the singleton creation to plattform specific instance; should alway be done in the AppDelegate
-            SimpleStorage.EditGroup = (string groupName) => {
-                return new DroidSimpleStorage(groupName, this);
-            };
+            // Set the App Context before SimpleStorage is used anywhere in your Android App. Otherwise
+            // the EditGroup(name) delegate can not be called (eg. nullpointer exception)
+            SimpleStorage.SetContext(ApplicationContext);
         }
 
         protected override void OnResume()
         {
             base.OnResume();
 
-            // open a new storage group with name "Demo" -- thanks to the delegate defined in OnCreate,
-            // this is even possible in code which is shared between Android and iOS
+            // open a new storage group with name "Demo" --- this is even possible
+            // in code which is shared between Android and iOS because EditGroup is
+            // a property holding a delegate which creates a plattform specific
+            // instance
             var storage = SimpleStorage.EditGroup("Demo");
 
             // loading key "app_launches" with an empty string as default value

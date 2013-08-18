@@ -8,13 +8,6 @@ namespace Tests
     public class BasicTests
     {
        
-        [SetUp]
-        public void SetUp()
-        {
-            SimpleStorage.EditGroup = (name) => {
-                return new iOSSimpleStorage(name);
-            };
-        }
 
         [Test]
         public void TestLifeCycleOfStringValue()

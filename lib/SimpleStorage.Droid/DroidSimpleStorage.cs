@@ -3,6 +3,23 @@ using Android.Content;
 
 namespace PerpetualEngine.Storage
 {
+    /// <summary>
+    /// Android specific implementation to let EditGroup(string) return a n iOSSimpleStorage object
+    /// </summary>
+    public partial class SimpleStorage
+    {
+        /// <summary>
+        /// Before using SimpleStorage somwhere in your Android App, make sure you call this method to set the context
+        /// </summary>
+        /// <param name="context">App Context.</param>
+        public static void SetContext(Context context)
+        {
+            SimpleStorage.EditGroup = (name) => {
+                return new DroidSimpleStorage(name, context);
+            };
+        }
+    }
+
     public class DroidSimpleStorage : SimpleStorage
     {
         ISharedPreferences Prefs{ get; set; }
