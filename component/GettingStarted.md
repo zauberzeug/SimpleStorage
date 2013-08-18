@@ -7,29 +7,17 @@ The basic usage is very simple
     var value = storage.Get("myKey");
 
 This component also provides async/await implementations (PutAsync, GetAsync, HasKeyAsync and DeleteAsync).
-There are specialized implementations for Android and iOS which make use of the native Prefreneces APIs to store the values, but you can use the above code also in files shared on both platforms. To make this possible, SimpleStorage.EditGroup is a delegate which you need to set on App start:
+There are specialized implementations for Android and iOS which make use of the native Prefreneces APIs to store the values. Thanks to a static initialization and the impleStorage.EditGroup creator delegate you can use the above code also in files shared on both platforms. 
 
-## iOS
+## Android Setup
 
-    public override bool FinishedLaunching(UIApplication app, NSDictionary options)
-    {
-        window = new UIWindow(UIScreen.MainScreen.Bounds);
-        
-        SimpleStorage.EditGroup = (string groupName) => {
-            return new iOSSimpleStorage(groupName);
-        };
-        
-        // other code
-    }
+On Android, we need the App context to use the shared preferences. Before you use SimpleStorage anywhere in your App, make sure you set the context with SimpleStorage.SetContext(). For example:
 
-### Android
     protected override void OnCreate(Bundle bundle)
     {
         base.OnCreate(bundle);
         
-        SimpleStorage.EditGroup = (string groupName) => {
-            return new DroidSimpleStorage(groupName, this);
-        };
+        SimpleStorage.SetContext(ApplicationContext);
         
         SetContentView(Resource.Layout.Main);
          
