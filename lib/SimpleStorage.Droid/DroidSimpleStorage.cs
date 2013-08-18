@@ -12,16 +12,27 @@ namespace PerpetualEngine.Storage
             Prefs = c.GetSharedPreferences(groupName, FileCreationMode.Private);
         }
 
+        /// <summary>
+        /// Retrieves value with given key.
+        /// </summary>
+        /// <returns>null, if key can not be found</returns>
         public override string Get(string key)
         {
             return Prefs.GetString(key, null);
         }
 
+        /// <summary>
+        /// Persists a value with given key.
+        /// </summary>
+        /// <param name="value">if value is null, the key will be deleted</param>
         public override void Put(string key, string value)
         {
             Prefs.Edit().PutString(key, value).Commit();
         }
 
+        /// <summary>
+        /// Delete the specified key.
+        /// </summary>
         public override void Delete(string key)
         {
             Prefs.Edit().PutString(key, null).Commit();

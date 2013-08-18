@@ -26,6 +26,7 @@ namespace PerpetualEngine.Storage
         override public void Delete(string key)
         {
             NSUserDefaults.StandardUserDefaults.RemoveObject(new NSString(Group + "_" + key));
+            NSUserDefaults.StandardUserDefaults.Synchronize();
         }
     }
 }

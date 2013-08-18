@@ -46,9 +46,5 @@
     <Compile Include="..\SimpleStorage.Shared\SimpleStorage.cs">
       <Link>SimpleStorage.cs</Link>
     </Compile>
-    <Compile Include="..\SimpleStorage.Shared\Tests.cs">
-      <Link>Tests.cs</Link>
-    </Compile>
-    <Compile Include="Tests.iOS.cs" />
   </ItemGroup>
 </Project>

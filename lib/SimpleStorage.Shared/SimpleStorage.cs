@@ -2,6 +2,7 @@ using System;
 using System.Xml.Serialization;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace PerpetualEngine.Storage
 {
@@ -31,6 +32,7 @@ namespace PerpetualEngine.Storage
         /// <summary>
         /// Persists a value with given key.
         /// </summary>
+        /// <param name="value">if value is null, the key will be deleted</param>
         public abstract void Put(string key, string value);
 
         /// <summary>
@@ -56,10 +58,44 @@ namespace PerpetualEngine.Storage
         /// </summary>
         public abstract void Delete(string key);
 
-        public void Put(string key, DateTime? value)
+        /// <summary>
+        /// Determines whether the storage has the specified key.
+        /// </summary>
+        /// <returns><c>true</c> if this instance has the specified key; otherwise, <c>false</c>.</returns>
+        /// <param name="key">Key.</param>
+        public bool HasKey(string key)
         {
-            if (value == null)
-                Delete(key);
+            if (Get(key) != null)
+                return true;
+            return false;
+        }
+
+        public async Task PutAsync(string key, string value)
+        {
+            await Task.Run(() => Put(key, value))
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        public async Task<string> GetAsync(string key)
+        {
+            return await Task.Run(() => Get(key))
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        public async Task<bool> HasKeyAsync(string key)
+        {
+            return await Task.Run(() => HasKey(key))
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        public async Task DeleteAsync(string key)
+        {
+            await Task.Run(() => Delete(key))
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        public void Put(string key, DateTime value)
+        {
             var data = value.ToString();
             Put(key, data);
         }

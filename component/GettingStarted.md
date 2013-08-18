@@ -3,10 +3,11 @@
 The basic usage is very simple
 
     var storage = SimpleStorage.EditGroup("group name of key/value store");
-    var storage.Put("myKey", "some value");
+    storage.Put("myKey", "some value");
     var value = storage.Get("myKey");
 
-There are specialized implementations for Android and iOS, but you can use the above code also in files shared on both platforms. To make this possible, SimpleStorage.EditGroup is a delegate which you need to set on App start:
+This component also provides async/await implementations (PutAsync, GetAsync, HasKeyAsync and DeleteAsync).
+There are specialized implementations for Android and iOS which make use of the native Prefreneces APIs to store the values, but you can use the above code also in files shared on both platforms. To make this possible, SimpleStorage.EditGroup is a delegate which you need to set on App start:
 
 ## iOS
 
