@@ -94,62 +94,22 @@ namespace PerpetualEngine.Storage
                 .ConfigureAwait(continueOnCapturedContext: false);
         }
 
-        public void Put(string key, DateTime value)
-        {
-            var data = value.ToString();
-            Put(key, data);
-        }
-
-        public void Put(string key, TimeSpan value)
-        {
-            var data = value.ToString();
-            Put(key, data);
-        }
-
-        void Put(string key, object value)
+        public void Put(string key, object value)
         {
             var data = SerializeObject(value);
             Put(key, data);
         }
 
-        Nullable<T> Get<T>(string key) where T : struct
-        {
-            throw new  NotImplementedException("has problem when reading string (http://stackoverflow.com/questions/8625705/xmlexception-text-node-cannot-appear-in-this-state)");
-            var data = Get(key);
-            Console.WriteLine("loading: " + data);
-            if (data == null)
-                return null;
-            try {
-                return DeserializeObject<T>(key);
-            } catch (Exception e) {
-                Console.WriteLine(e.Message);
-                return null;
-            }
-        }
-
-        public DateTime? GetDateTime(string key)
+        public T Get<T>(string key)
         {
             var data = Get(key);
             if (data == null)
-                return null;
+                return default(T);
             try {
-                return DateTime.Parse(data);
+                return DeserializeObject<T>(data);
             } catch (Exception e) {
                 Console.WriteLine(e.Message);
-                return null;
-            }
-        }
-
-        public TimeSpan GetTimeSpan(string key, TimeSpan defaultValue)
-        {
-            var data = Get(key);
-            if (data == null)
-                return defaultValue;
-            try {
-                return TimeSpan.Parse(data);
-            } catch (Exception e) {
-                Console.WriteLine(e.Message);
-                return defaultValue;
+                return default(T);
             }
         }
 

@@ -14,6 +14,11 @@ namespace PerpetualEngine.Storage
                 return new DesktopSimpleStorage(name);
             };
         }
+
+        public void Clear()
+        {
+            (this as DesktopSimpleStorage).database.Clear();
+        }
     }
 
     /// <summary>
@@ -21,7 +26,7 @@ namespace PerpetualEngine.Storage
     /// </summary>
     public class DesktopSimpleStorage : SimpleStorage
     {
-        Dictionary<string,string> database = new Dictionary<string,string>();
+        public Dictionary<string,string> database = new Dictionary<string,string>();
 
         public DesktopSimpleStorage(string groupName) : base(groupName)
         {

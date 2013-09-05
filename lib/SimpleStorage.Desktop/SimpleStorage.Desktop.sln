@@ -3,18 +3,24 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleStorage.Desktop", "SimpleStorage.Desktop.csproj", "{E351FE6B-09FC-4D95-913E-1C9BECBB5C2C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{30BA8C1E-20D9-4A25-839D-E8186DE244AF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{30BA8C1E-20D9-4A25-839D-E8186DE244AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30BA8C1E-20D9-4A25-839D-E8186DE244AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30BA8C1E-20D9-4A25-839D-E8186DE244AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30BA8C1E-20D9-4A25-839D-E8186DE244AF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E351FE6B-09FC-4D95-913E-1C9BECBB5C2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E351FE6B-09FC-4D95-913E-1C9BECBB5C2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E351FE6B-09FC-4D95-913E-1C9BECBB5C2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E351FE6B-09FC-4D95-913E-1C9BECBB5C2C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = SimpleStorage.Desktop.csproj
+		StartupItem = Tests\Tests.csproj
 	EndGlobalSection
 EndGlobal
