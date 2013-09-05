@@ -58,6 +58,21 @@ namespace PerpetualEngine.Storage
             Assert.AreEqual("a", result[0]);
             Assert.AreEqual("b", result[1]);
         }
+
+        [Test]
+        public void TestLoadingDefaultString()
+        {
+            var result = storage.Get<string>("test", "default string");
+            Assert.AreEqual("default string", result);
+        }
+
+        [Test]
+        public void TestLoadingDefaultTimeSpan()
+        {
+            var result = storage.Get<TimeSpan>("test", TimeSpan.FromMinutes(1));
+            Assert.AreEqual(TimeSpan.FromSeconds(60), result);
+        }
+
     }
 }
 

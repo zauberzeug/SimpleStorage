@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Collections.Generic;
 
 namespace PerpetualEngine.Storage
 {
@@ -111,6 +112,18 @@ namespace PerpetualEngine.Storage
             } catch (Exception e) {
                 Console.WriteLine(e.Message);
                 return default(T);
+            }
+        }
+
+        /// <summary>
+        /// Retrives a value with given key. If key can not be found, defaultValue is returned instead of null.
+        /// </summary>
+        public T Get<T>(string key, T defaultValue)
+        {
+            try {
+                return  Get<T>(key);
+            } catch (KeyNotFoundException) {
+                return defaultValue;
             }
         }
         // taken from http://stackoverflow.com/questions/2861722/binary-serialization-and-deserialization-without-creating-files-via-strings

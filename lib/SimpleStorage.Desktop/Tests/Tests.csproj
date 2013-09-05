@@ -35,14 +35,14 @@
       <Private>False</Private>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Test.cs" />
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\SimpleStorage.Desktop.csproj">
       <Project>{E351FE6B-09FC-4D95-913E-1C9BECBB5C2C}</Project>
       <Name>SimpleStorage.Desktop</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Tests.cs" />
   </ItemGroup>
 </Project>
