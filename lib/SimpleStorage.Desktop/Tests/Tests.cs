@@ -1,5 +1,6 @@
 using System;
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace PerpetualEngine.Storage
 {
@@ -46,6 +47,16 @@ namespace PerpetualEngine.Storage
             storage.Put("test", time);
             var result = storage.Get<TimeSpan>("test");
             Assert.AreEqual(122.0, result.TotalMinutes);
+        }
+
+        [Test]
+        public void TestSavingList()
+        {
+            var test = new List<string>() {"a", "b"};
+            storage.Put("test", test);
+            var result = storage.Get<List<string>>("test");
+            Assert.AreEqual("a", result[0]);
+            Assert.AreEqual("b", result[1]);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Xml.Serialization;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace PerpetualEngine.Storage
 {
@@ -94,7 +95,7 @@ namespace PerpetualEngine.Storage
                 .ConfigureAwait(continueOnCapturedContext: false);
         }
 
-        public void Put(string key, object value)
+        public void Put<T>(string key, T value)
         {
             var data = SerializeObject(value);
             Put(key, data);
@@ -112,22 +113,22 @@ namespace PerpetualEngine.Storage
                 return default(T);
             }
         }
-
-        static string SerializeObject<T>(T toSerialize)
+        // taken from http://stackoverflow.com/questions/2861722/binary-serialization-and-deserialization-without-creating-files-via-strings
+        static string SerializeObject<T>(T o)
         {
-            XmlSerializer xmlSerializer = new XmlSerializer(toSerialize.GetType());
-            StringWriter textWriter = new StringWriter();
-
-            xmlSerializer.Serialize(textWriter, toSerialize);
-            return textWriter.ToString();
+            using (MemoryStream stream = new MemoryStream()) {
+                new BinaryFormatter().Serialize(stream, o);
+                return Convert.ToBase64String(stream.ToArray());
+            }
         }
-
-        T DeserializeObject<T>(string toDeserialize)
+        // taken from http://stackoverflow.com/questions/2861722/binary-serialization-and-deserialization-without-creating-files-via-strings
+        T DeserializeObject<T>(string str)
         {
-            var xmlSerializer = new XmlSerializer(typeof(T));
-            var stringReader = new StringReader(toDeserialize);
+            byte[] bytes = Convert.FromBase64String(str);
 
-            return (T)xmlSerializer.Deserialize(stringReader);
+            using (MemoryStream stream = new MemoryStream(bytes)) {
+                return (T)new BinaryFormatter().Deserialize(stream);
+            }
         }
     }
 }
