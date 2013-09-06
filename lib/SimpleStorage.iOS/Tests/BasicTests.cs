@@ -1,6 +1,7 @@
 using System;
 using NUnit.Framework;
 using PerpetualEngine.Storage;
+using System.Collections.Generic;
 
 namespace Tests
 {
@@ -36,5 +37,15 @@ namespace Tests
             storage.Put("test", null);
             Assert.IsFalse(storage.HasKey("test"));
         }
+
+		[Test]
+		public void TestGettingDefaultList()
+		{
+			var storage = SimpleStorage.EditGroup(this.GetType().ToString());
+			var result = storage.Get<List<string>>("test", new List<string>());
+			foreach (var i in result)
+				Assert.Fail ();
+			Assert.AreEqual(0, result.Count);
+		}
     }
 }
