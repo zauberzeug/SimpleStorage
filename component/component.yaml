@@ -14,7 +14,7 @@ libraries:
 summary: Simple platform independent key/value storage
 details: GettingStarted.md
 getting-started: GettingStarted.md
-version: "1.1"
+version: "1.2"
 samples: 
   iOS Sample: ../samples/SimpleStorageDemo.iOS/SimpleStorageDemo.iOS.sln
   Android Sample: ../samples/SimpleStorageDemo.Droid/SimpleStorageDemo.Droid.sln
