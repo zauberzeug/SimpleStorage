@@ -1,35 +1,35 @@
 using System;
-using NUnit.Framework;
 using System.Collections.Generic;
 using StringList = System.Collections.Generic.List<string>;
+using NUnit.Framework;
 
 namespace PerpetualEngine.Storage
 {
-	[TestFixture()]
-	public class Tests
-	{
-		SimpleStorage storage;
+    [TestFixture()]
+    public class Tests
+    {
+        SimpleStorage storage;
 
-		[SetUp]
-		public void SetUp ()
-		{
-			storage = SimpleStorage.EditGroup (Guid.NewGuid ().ToString ());
-		}
+        [SetUp]
+        public void SetUp()
+        {
+            storage = SimpleStorage.EditGroup(Guid.NewGuid().ToString());
+        }
 
-		[TearDown]
-		public void TearDown ()
-		{
-			storage.Clear ();
-		}
+        [TearDown]
+        public void TearDown()
+        {
+            storage.Clear();
+        }
 
-		[Test]
-		public void TestSavingSimpleArray ()
-		{
-			string[] test = {"a", "b"};
+        [Test]
+        public void TestSavingSimpleArray()
+        {
+            string[] test = { "a", "b" };
             storage.Put("test", test);
             var result = storage.Get<string[]>("test");
-            Assert.AreEqual("a", result[0]);
-            Assert.AreEqual("b", result[1]);
+            Assert.AreEqual("a", result [0]);
+            Assert.AreEqual("b", result [1]);
         }
 
         [Test]
@@ -53,22 +53,21 @@ namespace PerpetualEngine.Storage
         [Test]
         public void TestSavingList()
         {
-            var test = new List<string>() {"a", "b"};
+            var test = new List<string>() { "a", "b" };
             storage.Put("test", test);
             var result = storage.Get<List<string>>("test");
-            Assert.AreEqual("a", result[0]);
-            Assert.AreEqual("b", result[1]);
+            Assert.AreEqual("a", result [0]);
+            Assert.AreEqual("b", result [1]);
         }
 
-		[Test]
-		public void TestGettingDefaultList()
-		{
-			var result = storage.Get<List<string>>("test", new StringList());
-			foreach (var i in result)
-				Assert.Fail ();
-			Assert.AreEqual(0, result.Count);
-		}
-
+        [Test]
+        public void TestGettingDefaultList()
+        {
+            var result = storage.Get<List<string>>("test", new StringList());
+            foreach (var i in result)
+                Assert.Fail();
+            Assert.AreEqual(0, result.Count);
+        }
 
         [Test]
         public void TestLoadingDefaultString()
@@ -83,18 +82,17 @@ namespace PerpetualEngine.Storage
             var result = storage.Get<TimeSpan?>("test", TimeSpan.FromMinutes(1));
             Assert.AreEqual(TimeSpan.FromSeconds(60), result);
 
-			var result2 = storage.Get<TimeSpan>("test", TimeSpan.FromMinutes(1));
-			Assert.AreEqual(TimeSpan.FromSeconds(60), result2);
-		 }
+            var result2 = storage.Get<TimeSpan>("test", TimeSpan.FromMinutes(1));
+            Assert.AreEqual(TimeSpan.FromSeconds(60), result2);
+        }
 
-		[Test]
-		public void TestNonexistentKeys()
-		{
-			Assert.IsNull (storage.Get<string> ("test"));
-			Assert.IsNull (storage.Get<TimeSpan?>("test"));
-			Assert.AreEqual (default(TimeSpan), storage.Get<TimeSpan>("test"));
-		}
-
+        [Test]
+        public void TestNonexistentKeys()
+        {
+            Assert.IsNull(storage.Get<string>("test"));
+            Assert.IsNull(storage.Get<TimeSpan?>("test"));
+            Assert.AreEqual(default(TimeSpan), storage.Get<TimeSpan>("test"));
+        }
     }
 }
 
