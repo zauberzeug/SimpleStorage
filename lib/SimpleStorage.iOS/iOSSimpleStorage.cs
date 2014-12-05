@@ -28,10 +28,13 @@ namespace PerpetualEngine.Storage
         /// <param name="value">if value is null, the key will be deleted</param>
         override public void Put(string key, string value)
         {
-            if (value == null) 
+            if (value == null)
                 Delete(key);
-            else 
-                NSUserDefaults.StandardUserDefaults.SetValueForKey(new NSString(value), new NSString(Group + "_" + key));
+            else {
+                var id = Group + "_" + key;
+                NSUserDefaults.StandardUserDefaults.SetValueForKey(new NSString(value), new NSString(id));
+                //Console.WriteLine("saved " + value + " with key " + id);
+            }
             NSUserDefaults.StandardUserDefaults.Synchronize();
         }
 
@@ -41,7 +44,10 @@ namespace PerpetualEngine.Storage
         /// <returns>null, if key can not be found</returns>
         override public string Get(string key)
         {
-            return NSUserDefaults.StandardUserDefaults.StringForKey(Group + "_" + key);
+            var id = Group + "_" + key;
+            var str = NSUserDefaults.StandardUserDefaults.StringForKey(id);
+            //Console.WriteLine("getting " + str + " via key " + id);
+            return str;
         }
 
         /// <summary>
