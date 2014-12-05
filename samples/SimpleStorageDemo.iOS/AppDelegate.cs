@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using MonoTouch.Dialog;
 using PerpetualEngine.Storage;
+using MonoTouch.Dialog;
 
 #if __UNIFIED__
 using Foundation;
 using UIKit;
+
 #else
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
@@ -14,7 +15,7 @@ using MonoTouch.UIKit;
 
 namespace SimpleStorageDemo.iOS
 {
-    [Register ("AppDelegate")]
+    [Register("AppDelegate")]
     public partial class AppDelegate : UIApplicationDelegate
     {
         UIWindow window;
@@ -40,7 +41,9 @@ namespace SimpleStorageDemo.iOS
 
             // simple presentation of the timestamp list with MonoTouch.Dialog
             var section = new Section();
-            section.AddAll(from l in appLaunches where !String.IsNullOrEmpty(l) select new StringElement(l));
+            section.AddAll(from l in appLaunches
+                                    where !String.IsNullOrEmpty(l)
+                                    select new StringElement(l));
             window.RootViewController = new DialogViewController(new RootElement("SimpleStorage Demo") {
                 section
             });

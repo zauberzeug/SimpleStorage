@@ -26,7 +26,7 @@ namespace SimpleStorageDemo.Droid
 		
 		public static void UpdateIdValues()
 		{
-			PerpetualMobile.Storage.Resource.String.library_name = SimpleStorageDemo.Droid.Resource.String.library_name;
+			global::PerpetualMobile.Storage.Resource.String.library_name = global::SimpleStorageDemo.Droid.Resource.String.library_name;
 		}
 		
 		public partial class Attribute

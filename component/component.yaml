@@ -10,11 +10,19 @@ icons:
 publisher-url: https://github.com/perpetual-mobile/SimpleStorage
 libraries: 
   ios: ../lib/SimpleStorage.iOS/SimpleStorage.iOS.dll
+  ios-unified: ../lib/SimpleStorage.iOS-Unified/SimpleStorage.iOS-Unified.dll
   android: ../lib/SimpleStorage.Droid/SimpleStorage.Droid.dll
 summary: Simple platform independent key/value storage
 details: GettingStarted.md
 getting-started: GettingStarted.md
-version: "1.2"
+version: "1.3"
 samples: 
-  iOS Sample: ../samples/SimpleStorageDemo.iOS/SimpleStorageDemo.iOS.sln
-  Android Sample: ../samples/SimpleStorageDemo.Droid/SimpleStorageDemo.Droid.sln
+ - name: "iOS Sample"
+   path: ../samples/SimpleStorageDemo.iOS/SimpleStorageDemo.iOS.sln
+   nobuild: true
+ - name: "iOS Unified Sample"
+   path: ../samples/SimpleStorageDemo.iOS-Unified/SimpleStorageDemo.iOS-Unified.sln
+   nobuild: true
+ - name: "Android Sample"
+   path: ../samples/SimpleStorageDemo.Droid/SimpleStorageDemo.Droid.sln
+   nobuild: true
