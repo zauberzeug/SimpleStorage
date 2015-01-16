@@ -6,7 +6,7 @@
     <ProjectGuid>{0D39F9CE-C040-4DDC-9F4C-5FCDA4B47F56}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Desktop</RootNamespace>
-    <AssemblyName>Desktop</AssemblyName>
+    <AssemblyName>PerpetualEngine.SimpleStorage.Desktop</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
