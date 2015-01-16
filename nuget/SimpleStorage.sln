@@ -9,12 +9,24 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iOS", "iOS\iOS.csproj", "{6
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iOS-Unified", "iOS-Unified\iOS-Unified.csproj", "{4D5FC392-58AB-4C28-91A2-5D5206158875}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Desktop", "Desktop\Desktop.csproj", "{0D39F9CE-C040-4DDC-9F4C-5FCDA4B47F56}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{30BA8C1E-20D9-4A25-839D-E8186DE244AF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0D39F9CE-C040-4DDC-9F4C-5FCDA4B47F56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D39F9CE-C040-4DDC-9F4C-5FCDA4B47F56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D39F9CE-C040-4DDC-9F4C-5FCDA4B47F56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D39F9CE-C040-4DDC-9F4C-5FCDA4B47F56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30BA8C1E-20D9-4A25-839D-E8186DE244AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30BA8C1E-20D9-4A25-839D-E8186DE244AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30BA8C1E-20D9-4A25-839D-E8186DE244AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30BA8C1E-20D9-4A25-839D-E8186DE244AF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4D5FC392-58AB-4C28-91A2-5D5206158875}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4D5FC392-58AB-4C28-91A2-5D5206158875}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D5FC392-58AB-4C28-91A2-5D5206158875}.Release|Any CPU.ActiveCfg = Release|Any CPU

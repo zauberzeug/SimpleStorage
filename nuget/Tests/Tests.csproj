@@ -3,12 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <ProjectGuid>{4D5FC392-58AB-4C28-91A2-5D5206158875}</ProjectGuid>
+    <ProjectGuid>{30BA8C1E-20D9-4A25-839D-E8186DE244AF}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>iOSUnified</RootNamespace>
-    <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>PerpetualEngine.SimpleStorage.iOS-Unified</AssemblyName>
+    <RootNamespace>Tests</RootNamespace>
+    <AssemblyName>Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,19 +29,22 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Core" />
-    <Reference Include="Xamarin.iOS" />
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Compile Include="Tests.cs" />
+    <Compile Include="SerializationTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\" />
+    <ProjectReference Include="..\Desktop\Desktop.csproj">
+      <Project>{0D39F9CE-C040-4DDC-9F4C-5FCDA4B47F56}</Project>
+      <Name>Desktop</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="..\..\lib\SimpleStorage.iOS\iOSSimpleStorage.cs">
-      <Link>iOSSimpleStorage.cs</Link>
-    </Compile>
+    <None Include="packages.config" />
   </ItemGroup>
-  <Import Project="..\Shared\Shared.projitems" Label="Shared" Condition="Exists('..\Shared\Shared.projitems')" />
-  <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
