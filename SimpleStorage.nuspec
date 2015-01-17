@@ -5,6 +5,7 @@
         <version>1.2</version>
         <authors>Perpetual Mobile GmbH</authors>
         <owners>Perpetual Mobile GmbH</owners>
+		<projectUrl>https://github.com/perpetual-mobile/SimpleStorage</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Simple platform independent key/value storage for iOS and Android (Xamarin)</description>
         <copyright>Copyright 2015</copyright>
