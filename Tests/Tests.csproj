@@ -39,12 +39,12 @@
     <Compile Include="SerializationTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Desktop\Desktop.csproj">
       <Project>{0D39F9CE-C040-4DDC-9F4C-5FCDA4B47F56}</Project>
       <Name>Desktop</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
 </Project>
