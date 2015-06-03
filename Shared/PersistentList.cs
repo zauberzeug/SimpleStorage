@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace PerpetualEngine.Storage
 {
-    public class PersistentList<T> : IEnumerable, IEnumerable<T>, IEventExceutor where T : IIdentifiable
+    public class PersistentList<T> : IEnumerable, IEnumerable<T> where T : IIdentifiable
     {
         SimpleStorage storage;
         const string idListKey = "ids";
@@ -28,13 +28,12 @@ namespace PerpetualEngine.Storage
                     items.Add(item);
                 }
 
-                if (broken.Count > 0) {
+                if (broken.Count > 0)
                     foreach (var id in broken) {
                         storage.Delete(id);
                         ids.Remove(id);
                         storage.Put(idListKey, ids);
                     }
-                }
 
                 CustomSerializer = serialize;
             } catch (Exception e) {

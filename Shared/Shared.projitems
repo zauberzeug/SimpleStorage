@@ -14,6 +14,5 @@
     <Compile Include="$(MSBuildThisFileDirectory)JsonPersistingList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PersistentList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PersistentStrings.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IEventExecutor.cs" />
   </ItemGroup>
 </Project>
