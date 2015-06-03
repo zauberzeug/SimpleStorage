@@ -1,5 +1,3 @@
-using System;
-
 #if __UNIFIED__
 using Foundation;
 #else
@@ -15,9 +13,7 @@ namespace PerpetualEngine.Storage
     {
         static SimpleStorage()
         {
-            SimpleStorage.EditGroup = (name) => {
-                return new iOSSimpleStorage(name);
-            };
+            SimpleStorage.EditGroup = name => new iOSSimpleStorage(name);
         }
     }
 
@@ -30,16 +26,14 @@ namespace PerpetualEngine.Storage
         /// <summary>
         /// Persists a value with given key.
         /// </summary>
+        /// <param name = "key">Key</param>
         /// <param name="value">if value is null, the key will be deleted</param>
         override public void Put(string key, string value)
         {
             if (value == null)
                 Delete(key);
-            else {
-                var id = Group + "_" + key;
-                NSUserDefaults.StandardUserDefaults.SetValueForKey(new NSString(value), new NSString(id));
-                //Console.WriteLine("saved " + value + " with key " + id);
-            }
+            else
+                NSUserDefaults.StandardUserDefaults.SetValueForKey(new NSString(value), new NSString(Group + "_" + key));
             NSUserDefaults.StandardUserDefaults.Synchronize();
         }
 
@@ -49,10 +43,7 @@ namespace PerpetualEngine.Storage
         /// <returns>null, if key can not be found</returns>
         override public string Get(string key)
         {
-            var id = Group + "_" + key;
-            var str = NSUserDefaults.StandardUserDefaults.StringForKey(id);
-            //Console.WriteLine("getting " + str + " via key " + id);
-            return str;
+            return NSUserDefaults.StandardUserDefaults.StringForKey(Group + "_" + key);
         }
 
         /// <summary>

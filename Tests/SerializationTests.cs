@@ -1,11 +1,10 @@
 using System;
-using NUnit.Framework;
-using PerpetualEngine.Storage;
 using System.Runtime.Serialization;
+using NUnit.Framework;
 
-namespace Tests
+namespace PerpetualEngine.Storage
 {
-    [TestFixture()]
+    [TestFixture]
     public class SerializationTests
     {
         SimpleStorage storage;
@@ -23,7 +22,7 @@ namespace Tests
         }
 
         [Serializable]
-        class ClassWithNonSerializableMembers :IDeserializationCallback
+        class ClassWithNonSerializableMembers: IDeserializationCallback
         {
             [field:NonSerialized]
             public event Action TestAction = delegate {};
@@ -36,30 +35,23 @@ namespace Tests
                 TestAction();
             }
 
-            #region IDeserializationCallback implementation
-
             public void OnDeserialization(object sender)
             {
                 TestAction = delegate {
                 };
                 TestInteger = 1;
             }
-
-            #endregion
-
         }
 
         [Test]
         public void TestNonSerializableMemberInitialization()
         {
-            storage.Put("test", new ClassWithNonSerializableMembers() { TestInteger = 2 });
+            storage.Put("test", new ClassWithNonSerializableMembers { TestInteger = 2 });
 
             var restored = storage.Get<ClassWithNonSerializableMembers>("test");
             Assert.AreEqual(1, restored.TestInteger);
 
-            Assert.DoesNotThrow(() => { 
-                restored.ExecuteTestAction();
-            });
+            Assert.DoesNotThrow(restored.ExecuteTestAction);
         }
     }
 }

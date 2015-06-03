@@ -1,4 +1,3 @@
-using System;
 using Android.Content;
 
 namespace PerpetualEngine.Storage
@@ -14,9 +13,7 @@ namespace PerpetualEngine.Storage
         /// <param name="context">App Context.</param>
         public static void SetContext(Context context)
         {
-            SimpleStorage.EditGroup = (name) => {
-                return new DroidSimpleStorage (name, context);
-            };
+            SimpleStorage.EditGroup = name => new DroidSimpleStorage(name, context);
         }
     }
 
@@ -24,9 +21,9 @@ namespace PerpetualEngine.Storage
     {
         ISharedPreferences Prefs{ get; set; }
 
-        public DroidSimpleStorage (string groupName, Context c) :base (groupName)
+        public DroidSimpleStorage(string groupName, Context context) : base(groupName)
         {
-            Prefs = c.GetSharedPreferences (groupName, FileCreationMode.Private);
+            Prefs = context.GetSharedPreferences(groupName, FileCreationMode.Private);
         }
 
         /// <summary>
@@ -35,16 +32,17 @@ namespace PerpetualEngine.Storage
         /// <returns>null, if key can not be found</returns>
         public override string Get(string key)
         {
-            return Prefs.GetString (key, null);
+            return Prefs.GetString(key, null);
         }
 
         /// <summary>
         /// Persists a value with given key.
         /// </summary>
+        /// <param name = "key">Key</param>
         /// <param name="value">if value is null, the key will be deleted</param>
         public override void Put(string key, string value)
         {
-            Prefs.Edit ().PutString (key, value).Commit ();
+            Prefs.Edit().PutString(key, value).Commit();
         }
 
         /// <summary>
@@ -52,7 +50,7 @@ namespace PerpetualEngine.Storage
         /// </summary>
         public override void Delete(string key)
         {
-            Prefs.Edit ().PutString (key, null).Commit ();
+            Prefs.Edit().PutString(key, null).Commit();
         }
     }
 }

@@ -1,9 +1,7 @@
 using System;
 using System.IO;
-using System.Text;
-using System.Threading.Tasks;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PerpetualEngine.Storage
 {
@@ -18,7 +16,7 @@ namespace PerpetualEngine.Storage
         /// the GettingStarted-Component-Description.
         /// </summary>
         /// <param name="groupName">the namespace for this storage object</param>
-        public SimpleStorage(string groupName)
+        protected SimpleStorage(string groupName)
         {
             Group = groupName;
         }
@@ -32,6 +30,7 @@ namespace PerpetualEngine.Storage
         /// <summary>
         /// Persists a value with given key.
         /// </summary>
+        /// <param name = "key">Key</param>
         /// <param name="value">if value is null, the key will be deleted</param>
         public abstract void Put(string key, string value);
 
@@ -46,11 +45,7 @@ namespace PerpetualEngine.Storage
         /// </summary>
         public string Get(string key, string defaultValue)
         {
-            var value = Get(key);
-            if (value == null)
-                return defaultValue;
-            else
-                return value;
+            return Get(key) ?? defaultValue;
         }
 
         /// <summary>
@@ -65,9 +60,7 @@ namespace PerpetualEngine.Storage
         /// <param name="key">Key.</param>
         public bool HasKey(string key)
         {
-            if (Get(key) != null)
-                return true;
-            return false;
+            return Get(key) != null;
         }
 
         /// <summary>
@@ -77,8 +70,7 @@ namespace PerpetualEngine.Storage
         /// <param name="key">Key.</param>
         public async Task PutAsync(string key, string value)
         {
-            await Task.Run(() => Put(key, value))
-                .ConfigureAwait(continueOnCapturedContext: false);
+            await Task.Run(() => Put(key, value)).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -87,8 +79,7 @@ namespace PerpetualEngine.Storage
         /// <returns>null, if key can not be found</returns>
         public async Task<string> GetAsync(string key)
         {
-            return await Task.Run(() => Get(key))
-                .ConfigureAwait(continueOnCapturedContext: false);
+            return await Task.Run(() => Get(key)).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -98,8 +89,7 @@ namespace PerpetualEngine.Storage
         /// <param name="key">Key.</param>
         public async Task<bool> HasKeyAsync(string key)
         {
-            return await Task.Run(() => HasKey(key))
-                .ConfigureAwait(continueOnCapturedContext: false);
+            return await Task.Run(() => HasKey(key)).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -107,8 +97,7 @@ namespace PerpetualEngine.Storage
         /// </summary>
         public async Task DeleteAsync(string key)
         {
-            await Task.Run(() => Delete(key))
-                .ConfigureAwait(continueOnCapturedContext: false);
+            await Task.Run(() => Delete(key)).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -118,8 +107,7 @@ namespace PerpetualEngine.Storage
         /// <param name="value">must be serializable</param>
         public async Task PutAsync<T>(string key, T value)
         {
-            await Task.Run(() => Put<T>(key, value))
-                .ConfigureAwait(continueOnCapturedContext: false);
+            await Task.Run(() => Put<T>(key, value)).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -129,8 +117,7 @@ namespace PerpetualEngine.Storage
         /// <param name="value">must be serializable</param>
         public void Put<T>(string key, T value)
         {
-            var data = SerializeObject(value);
-            Put(key, data);
+            Put(key, SerializeObject(value));
         }
 
         /// <summary>
@@ -141,8 +128,7 @@ namespace PerpetualEngine.Storage
         /// <returns>deserialized complex type</returns>
         public async Task<T> GetAsync<T>(string key)
         {
-            return await Task.Run(() => Get<T>(key))
-                .ConfigureAwait(continueOnCapturedContext: false);
+            return await Task.Run(() => Get<T>(key)).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -170,32 +156,27 @@ namespace PerpetualEngine.Storage
         /// <returns>deserialized complex type</returns>
         public T Get<T>(string key, T defaultValue)
         {
-            if (!HasKey(key))
-                return defaultValue;
-            var result = Get<T>(key);
-            return result;
+            return HasKey(key) ? Get<T>(key) : defaultValue;
         }
+
         // taken from http://stackoverflow.com/questions/2861722/binary-serialization-and-deserialization-without-creating-files-via-strings
         internal static string SerializeObject<T>(T o)
         {
-            using (MemoryStream stream = new MemoryStream()) {
+            using (var stream = new MemoryStream()) {
                 new BinaryFormatter().Serialize(stream, o);
                 return Convert.ToBase64String(stream.ToArray());
             }
         }
+
         // taken from http://stackoverflow.com/questions/2861722/binary-serialization-and-deserialization-without-creating-files-via-strings
         internal static T DeserializeObject<T>(string str)
         {
-            byte[] bytes = Convert.FromBase64String(str);
-
-            using (MemoryStream stream = new MemoryStream(bytes)) {
+            using (var stream = new MemoryStream(Convert.FromBase64String(str))) {
                 try {
                     Environment.SetEnvironmentVariable("MONO_REFLECTION_SERIALIZER", "yes");
-                    var formatter = new BinaryFormatter();
-                    object result = formatter.Deserialize(stream);
-                    return (T)result;
+                    return (T)new BinaryFormatter().Deserialize(stream);
                 } catch (Exception e) {
-                    Console.WriteLine("SimpleStorage:" + e.Message);
+                    Console.WriteLine("SimpleStorage: " + e.Message);
                     return default(T);
                 }
             }

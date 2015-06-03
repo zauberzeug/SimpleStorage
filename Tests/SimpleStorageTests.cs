@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
-using StringList = System.Collections.Generic.List<string>;
 using NUnit.Framework;
 
 namespace PerpetualEngine.Storage
 {
-    [TestFixture()]
-    public class Tests
+    [TestFixture]
+    public class SimpleStorageTests
     {
         SimpleStorage storage;
 
@@ -23,13 +22,20 @@ namespace PerpetualEngine.Storage
         }
 
         [Test]
+        public void TestSavingString()
+        {
+            storage.Put("test", "hello world");
+            Assert.AreEqual("hello world", storage.Get("test"));
+        }
+
+        [Test]
         public void TestSavingSimpleArray()
         {
             string[] test = { "a", "b" };
             storage.Put("test", test);
             var result = storage.Get<string[]>("test");
-            Assert.AreEqual("a", result [0]);
-            Assert.AreEqual("b", result [1]);
+            Assert.AreEqual("a", result[0]);
+            Assert.AreEqual("b", result[1]);
         }
 
         [Test]
@@ -56,14 +62,14 @@ namespace PerpetualEngine.Storage
             var test = new List<string>() { "a", "b" };
             storage.Put("test", test);
             var result = storage.Get<List<string>>("test");
-            Assert.AreEqual("a", result [0]);
-            Assert.AreEqual("b", result [1]);
+            Assert.AreEqual("a", result[0]);
+            Assert.AreEqual("b", result[1]);
         }
 
         [Test]
         public void TestGettingDefaultList()
         {
-            var result = storage.Get<List<string>>("test", new StringList());
+            var result = storage.Get<List<string>>("test", new List<string>());
             foreach (var i in result)
                 Assert.Fail();
             Assert.AreEqual(0, result.Count);
