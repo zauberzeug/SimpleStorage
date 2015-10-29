@@ -20,7 +20,13 @@ namespace PerpetualEngine.Storage
 
                 var broken = new List<string>();
                 foreach (var i in ids) {
-                    var item = deserialize == null ? storage.Get<T>(i) : deserialize(storage.Get(i));
+                    T item = default(T);
+                    try {
+                        item = deserialize == null ? storage.Get<T>(i) : deserialize(storage.Get(i));
+                    } catch (Exception e) {
+                        Console.WriteLine(e.Message);
+                    }
+
                     if (item == null) {
                         broken.Add(i);
                         continue;
