@@ -18,7 +18,7 @@ namespace PerpetualEngine.Storage
         [TearDown]
         public void TearDown()
         {
-            storage.Clear();
+            (storage as DesktopSimpleStorage).Clear();
         }
 
         [Test]

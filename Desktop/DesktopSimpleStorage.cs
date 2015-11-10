@@ -12,11 +12,6 @@ namespace PerpetualEngine.Storage
         {
             SimpleStorage.EditGroup = name => new DesktopSimpleStorage(name);
         }
-
-        public void Clear()
-        {
-            DesktopSimpleStorage.Database.Clear();
-        }
     }
 
     /// <summary>
@@ -24,7 +19,9 @@ namespace PerpetualEngine.Storage
     /// </summary>
     public class DesktopSimpleStorage : SimpleStorage
     {
-        public static Dictionary<string, string> Database = new Dictionary<string, string>();
+        static  Dictionary<string, string> Database = new Dictionary<string, string>();
+
+        static string lockObject = "lock";
 
         public DesktopSimpleStorage(string groupName) : base(groupName)
         {
@@ -42,11 +39,13 @@ namespace PerpetualEngine.Storage
                 return;
             }
 
-            var id = Group + "_" + key;
-            if (Database.ContainsKey(id))
-                Database.Remove(id);
+            lock (lockObject) {
+                var id = Group + "_" + key;
+                if (Database.ContainsKey(id))
+                    Database.Remove(id);
 
-            Database.Add(id, value);
+                Database.Add(id, value);
+            }
         }
 
         /// <summary>
@@ -55,8 +54,10 @@ namespace PerpetualEngine.Storage
         /// <returns>null, if key can not be found</returns>
         override public string Get(string key)
         {
-            var id = Group + "_" + key;
-            return Database.ContainsKey(id) ? Database[id] : null;
+            lock (lockObject) {
+                var id = Group + "_" + key;
+                return Database.ContainsKey(id) ? Database[id] : null;
+            }
         }
 
         /// <summary>
@@ -64,7 +65,16 @@ namespace PerpetualEngine.Storage
         /// </summary>
         override public void Delete(string key)
         {
-            Database.Remove(Group + "_" + key);
+            lock (lockObject) {
+                Database.Remove(Group + "_" + key);
+            }
+        }
+
+        public void Clear()
+        {
+            lock (lockObject) {
+                Database.Clear();
+            }
         }
     }
 }
