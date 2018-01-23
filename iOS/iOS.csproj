@@ -19,6 +19,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+    <MtouchLink>SdkOnly</MtouchLink>
+    <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -27,6 +29,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+    <MtouchLink>SdkOnly</MtouchLink>
+    <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
