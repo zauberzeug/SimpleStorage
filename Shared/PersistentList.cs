@@ -14,26 +14,20 @@ namespace PerpetualEngine.Storage
 
         public PersistentList(string editGroup, Func<T, string> serialize = null, Func<string, T> deserialize = null)
         {
-            try
-            {
+            try {
                 storage = SimpleStorage.EditGroup(editGroup);
                 ids = storage.Get<List<string>>(idListKey) ?? new List<string>();
 
                 var broken = new List<string>();
-                foreach (var i in ids)
-                {
+                foreach (var i in ids) {
                     T item = default(T);
-                    try
-                    {
+                    try {
                         item = deserialize == null ? storage.Get<T>(i) : deserialize(storage.Get(i));
-                    }
-                    catch (Exception e)
-                    {
+                    } catch (Exception e) {
                         Console.WriteLine(e.Message);
                     }
 
-                    if (item == null)
-                    {
+                    if (item == null) {
                         broken.Add(i);
                         continue;
                     }
@@ -41,17 +35,14 @@ namespace PerpetualEngine.Storage
                 }
 
                 if (broken.Count > 0)
-                    foreach (var id in broken)
-                    {
+                    foreach (var id in broken) {
                         storage.Delete(id);
                         ids.Remove(id);
                         storage.Put(idListKey, ids);
                     }
 
                 CustomSerializer = serialize;
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 Console.WriteLine(e.Message);
             }
         }
@@ -66,14 +57,11 @@ namespace PerpetualEngine.Storage
 
         public void ClearEventDelegates()
         {
-            Added = delegate
-            {
+            Added = delegate {
             };
-            Removed = delegate
-            {
+            Removed = delegate {
             };
-            Updated = delegate
-            {
+            Updated = delegate {
             };
 
             foreach (var id in onUpdatedSubscriptions.Keys)
@@ -84,8 +72,7 @@ namespace PerpetualEngine.Storage
         public void Subscribe(string id, Action onUpdated)
         {
             if (!onUpdatedSubscriptions.ContainsKey(id))
-                onUpdatedSubscriptions.Add(id, delegate
-                {
+                onUpdatedSubscriptions.Add(id, delegate {
                 });
             onUpdatedSubscriptions[id] += onUpdated;
         }
@@ -128,8 +115,7 @@ namespace PerpetualEngine.Storage
 
         public virtual void Add(List<T> values)
         {
-            foreach (var v in values)
-            {
+            foreach (var v in values) {
                 var id = GetId(v);
                 Save(id, v);
                 ids.Add(id);
