@@ -51,6 +51,11 @@ namespace PerpetualEngine.Storage
         public void AddAllTest()
         {
             var list = new JsonPersistingList<IdentifiableForTesting>(editGroup);
+            int addedCalledCount = 0;
+            list.Added += delegate {
+                addedCalledCount++;
+            };
+
             var items = new List<IdentifiableForTesting>{
                 new IdentifiableForTesting("0"),
                 new IdentifiableForTesting("1"),
@@ -58,6 +63,7 @@ namespace PerpetualEngine.Storage
             list.Add(items);
 
             Assert.That(list.Count(), Is.EqualTo(2));
+            Assert.That(addedCalledCount, Is.EqualTo(2));
             Assert.That(list[0].Id, Is.EqualTo("0"));
             Assert.That(list[1].Id, Is.EqualTo("1"));
         }
