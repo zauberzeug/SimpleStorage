@@ -6,7 +6,7 @@ namespace PerpetualEngine.Storage
     public class JsonPersistingList<T> : PersistentList<T> where T : IIdentifiable
     {
         public JsonPersistingList(string editGroup) : base(
-                editGroup, 
+                editGroup,
                 obj => {
                     var str = JsonConvert.SerializeObject(obj);
                     return str;
