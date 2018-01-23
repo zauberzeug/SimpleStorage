@@ -129,7 +129,16 @@ namespace PerpetualEngine.Storage
         public virtual void Add(List<T> values)
         {
             foreach (var v in values)
-                Add(v);
+            {
+                var id = GetId(v);
+                Save(id, v);
+                ids.Add(id);
+            }
+            storage.Put(idListKey, ids);
+            items.AddRange(values);
+
+            foreach (var v in values)
+                Added(v);
         }
 
         /// <summary>
