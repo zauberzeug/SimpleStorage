@@ -18,8 +18,7 @@
     </metadata>
     <files>
         <file src="Droid/bin/Release/PerpetualEngine.SimpleStorage.Droid.dll" target="lib\MonoAndroid" />
-        <file src="iOS/bin/Release/PerpetualEngine.SimpleStorage.iOS.dll" target="lib\MonoTouch" />
-        <file src="iOS-Unified/bin/Release/PerpetualEngine.SimpleStorage.iOS-Unified.dll" target="lib\Xamarin.iOS10" />
+        <file src="iOS/bin/Release/PerpetualEngine.SimpleStorage.iOS.dll" target="lib\Xamarin.iOS10" />
         <file src="Desktop/bin/Release/PerpetualEngine.SimpleStorage.Desktop.dll" target="lib\net45" />
     </files>
 </package>
