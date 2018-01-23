@@ -14,20 +14,26 @@ namespace PerpetualEngine.Storage
 
         public PersistentList(string editGroup, Func<T, string> serialize = null, Func<string, T> deserialize = null)
         {
-            try {
+            try
+            {
                 storage = SimpleStorage.EditGroup(editGroup);
                 ids = storage.Get<List<string>>(idListKey) ?? new List<string>();
 
                 var broken = new List<string>();
-                foreach (var i in ids) {
+                foreach (var i in ids)
+                {
                     T item = default(T);
-                    try {
+                    try
+                    {
                         item = deserialize == null ? storage.Get<T>(i) : deserialize(storage.Get(i));
-                    } catch (Exception e) {
+                    }
+                    catch (Exception e)
+                    {
                         Console.WriteLine(e.Message);
                     }
 
-                    if (item == null) {
+                    if (item == null)
+                    {
                         broken.Add(i);
                         continue;
                     }
@@ -35,33 +41,39 @@ namespace PerpetualEngine.Storage
                 }
 
                 if (broken.Count > 0)
-                    foreach (var id in broken) {
+                    foreach (var id in broken)
+                    {
                         storage.Delete(id);
                         ids.Remove(id);
                         storage.Put(idListKey, ids);
                     }
 
                 CustomSerializer = serialize;
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 Console.WriteLine(e.Message);
             }
         }
 
         Func<T, string> CustomSerializer;
 
-        public event Action<T> Added = delegate {};
-        public event Action<int, T> Removed = delegate {};
-        public event Action<T> Updated = delegate {};
+        public event Action<T> Added = delegate { };
+        public event Action<int, T> Removed = delegate { };
+        public event Action<T> Updated = delegate { };
 
         Dictionary<string, Action> onUpdatedSubscriptions = new Dictionary<string, Action>();
 
         public void ClearEventDelegates()
         {
-            Added = delegate {
+            Added = delegate
+            {
             };
-            Removed = delegate {
+            Removed = delegate
+            {
             };
-            Updated = delegate {
+            Updated = delegate
+            {
             };
 
             foreach (var id in onUpdatedSubscriptions.Keys)
@@ -72,7 +84,8 @@ namespace PerpetualEngine.Storage
         public void Subscribe(string id, Action onUpdated)
         {
             if (!onUpdatedSubscriptions.ContainsKey(id))
-                onUpdatedSubscriptions.Add(id, delegate {
+                onUpdatedSubscriptions.Add(id, delegate
+                {
                 });
             onUpdatedSubscriptions[id] += onUpdated;
         }
@@ -89,11 +102,7 @@ namespace PerpetualEngine.Storage
 
         public virtual void Insert(int index, T value)
         {
-            var id = value.Id;
-            if (id == idListKey)
-                throw new ApplicationException("The id must not be \"" + idListKey + "\".");
-            if (ids.Contains(id))
-                throw new ApplicationException("Object with id \"" + id + "\" already exists.");
+            var id = GetId(value);
             Save(id, value);
             ids.Insert(index, id);
             storage.Put(idListKey, ids);
@@ -102,9 +111,25 @@ namespace PerpetualEngine.Storage
             Added(value);
         }
 
+        string GetId(T value)
+        {
+            var id = value.Id;
+            if (id == idListKey)
+                throw new ApplicationException("The id must not be \"" + idListKey + "\".");
+            if (ids.Contains(id))
+                throw new ApplicationException("Object with id \"" + id + "\" already exists.");
+            return id;
+        }
+
         public virtual void Add(T value)
         {
             Insert(ids.Count, value);
+        }
+
+        public virtual void Add(List<T> values)
+        {
+            foreach (var v in values)
+                Add(v);
         }
 
         /// <summary>

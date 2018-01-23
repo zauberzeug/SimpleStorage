@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 
@@ -44,6 +45,21 @@ namespace PerpetualEngine.Storage
             Assert.AreEqual(2, list.Count);
             Assert.AreEqual("1", list.First().Id);
             Assert.AreEqual("3", list.Skip(1).First().Id);
+        }
+
+        [Test]
+        public void AddAllTest()
+        {
+            var list = new JsonPersistingList<IdentifiableForTesting>(editGroup);
+            var items = new List<IdentifiableForTesting>{
+                new IdentifiableForTesting("0"),
+                new IdentifiableForTesting("1"),
+            };
+            list.Add(items);
+
+            Assert.That(list.Count(), Is.EqualTo(2));
+            Assert.That(list[0].Id, Is.EqualTo("0"));
+            Assert.That(list[1].Id, Is.EqualTo("1"));
         }
     }
 }
