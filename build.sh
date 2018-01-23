@@ -37,7 +37,7 @@ function publishNuGet {
 #  git push
   git push --tags
 
-  nuget push $1
+  nuget push $1 -Source https://www.nuget.org/api/v2/package
 }
 
 $NUGET restore SimpleStorage.sln || exit 1
