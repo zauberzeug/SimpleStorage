@@ -115,6 +115,11 @@ namespace PerpetualEngine.Storage
 
         public virtual void Add(List<T> values)
         {
+            Add(values.ToArray());
+        }
+
+        public virtual void Add(params T[] values)
+        {
             foreach (var v in values) {
                 var id = GetId(v);
                 Save(id, v);

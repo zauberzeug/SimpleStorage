@@ -66,6 +66,12 @@ namespace PerpetualEngine.Storage
             Assert.That(addedCalledCount, Is.EqualTo(2));
             Assert.That(list[0].Id, Is.EqualTo("0"));
             Assert.That(list[1].Id, Is.EqualTo("1"));
+
+            list.Add(new IdentifiableForTesting("2"), new IdentifiableForTesting("3"));
+            Assert.That(list.Count(), Is.EqualTo(4));
+            Assert.That(addedCalledCount, Is.EqualTo(4));
+            Assert.That(list[2].Id, Is.EqualTo("2"));
+            Assert.That(list[3].Id, Is.EqualTo("3"));
         }
     }
 }
