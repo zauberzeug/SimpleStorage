@@ -1,17 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using PerpetualEngine.Storage;
 using Xamarin.Forms;
 
 namespace Demo.Performance
 {
-    public class AddMeasurement : Measurement
+    public abstract class AddMeasurement : Measurement
     {
         Button button;
-        Label label;
+        protected Label label;
         View view;
         int count;
         int contentSize;
+        protected string ButtonText;
+
+        protected JsonPersistingList<TestItem> JsonPersistingList { get; set; }
+        protected List<TestItem> LocalMemoryItems { get; set; }
 
         public AddMeasurement(int count, int contentSize)
         {
@@ -31,7 +36,7 @@ namespace Demo.Performance
         {
             var layout = new StackLayout();
             button = new Button {
-                Text = @"Add (count=" + count + "; " + "size/object=" + contentSize + ")",
+                Text = ButtonText,
                 Command = new Command(Run),
             };
             label = new Label();
@@ -40,7 +45,7 @@ namespace Demo.Performance
             return layout;
         }
 
-        List<TestItem> CreateTestItems()
+        protected List<TestItem> CreateTestItems()
         {
             var list = new List<TestItem>();
             for (int i = 0; i < count; i++)
@@ -50,15 +55,19 @@ namespace Demo.Performance
 
         void Run()
         {
-            var persistentList = new JsonPersistingList<TestItem>("asdf");
-            var list = CreateTestItems();
+            JsonPersistingList = new JsonPersistingList<TestItem>("asdf");
+            if (!JsonPersistingList.IsEmpty)
+                throw new ArgumentException("List should be empty");
+            LocalMemoryItems = CreateTestItems();
             var startTime = DateTime.Now;
-            foreach (var item in list)
-                persistentList.Add(item);
+
+            Execute();
 
             var msNeeded = (DateTime.Now - startTime).TotalMilliseconds;
             label.Text = "needed time (ms) : " + msNeeded;
-            persistentList.Clear();
+            JsonPersistingList.Clear();
         }
+
+        protected abstract void Execute();
     }
 }

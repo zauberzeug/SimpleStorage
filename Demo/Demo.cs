@@ -8,10 +8,13 @@ namespace Demo
     public class App : Application
     {
         List<Measurement> measurements = new List<Measurement>{
-            new AddMeasurement(100,10),
-            new AddMeasurement(1000,10),
-            new AddMeasurement(2000,10),
-            new AddMeasurement(4000,10),
+            new AddSingleItemMeasurement(10,1000),
+            new AddSingleItemMeasurement(100,10),
+            new AddSingleItemMeasurement(1000,10),
+            new AddSingleItemMeasurement(2000,10),
+            new AddRangeMeasurement(1000,10),
+            new AddRangeMeasurement(2000,10),
+
         };
         public App()
         {

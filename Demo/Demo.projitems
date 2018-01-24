@@ -13,6 +13,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Performance\Measurement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Performance\AddMeasurement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Performance\TestItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Performance\AddRangeMeasurement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Performance\AddSingleItemMeasurement.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Performance\" />

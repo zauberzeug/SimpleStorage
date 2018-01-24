@@ -5,7 +5,6 @@ namespace Demo.Performance
 {
     public class TestItem : IIdentifiable
     {
-        string id;
         public string Id { get; private set; }
         public string[] Content;
 
