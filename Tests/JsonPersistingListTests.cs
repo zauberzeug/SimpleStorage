@@ -19,28 +19,28 @@ namespace PerpetualEngine.Storage
         [Test]
         public void TestStoringAndLoading()
         {
-            var list = new JsonPersistingList<IdentifiableForTesting>(editGroup);
-            list.Add(new IdentifiableForTesting("test"));
-            Assert.True(SimpleStorage.EditGroup(editGroup).HasKey("test"));
-            Assert.AreEqual("{\"Id\":\"test\"}", SimpleStorage.EditGroup(editGroup).Get("test"));
+            var list = new JsonPersistingList<TestItem>(editGroup);
+            list.Add(new TestItem("A"));
+            Assert.True(SimpleStorage.EditGroup(editGroup).HasKey("A"));
+            Assert.AreEqual("{\"Id\":\"A\",\"Value\":\"a\"}", SimpleStorage.EditGroup(editGroup).Get("A"));
 
-            list = new JsonPersistingList<IdentifiableForTesting>(editGroup);
+            list = new JsonPersistingList<TestItem>(editGroup);
             Assert.AreEqual(1, list.Count);
-            Assert.AreEqual("test", list.First().Id);
+            Assert.AreEqual("A", list.First().Id);
         }
 
         [Test]
         public void TestSkippingNonDeserializableEntries()
         {
-            var list = new JsonPersistingList<IdentifiableForTesting>(editGroup);
-            list.Add(new IdentifiableForTesting("1"));
-            list.Add(new IdentifiableForTesting("2"));
-            list.Add(new IdentifiableForTesting("3"));
+            var list = new JsonPersistingList<TestItem>(editGroup);
+            list.Add(new TestItem("1"));
+            list.Add(new TestItem("2"));
+            list.Add(new TestItem("3"));
 
             var storage = SimpleStorage.EditGroup(editGroup);
             storage.Put("2", "some bad data");
 
-            list = new JsonPersistingList<IdentifiableForTesting>(editGroup);
+            list = new JsonPersistingList<TestItem>(editGroup);
 
             Assert.AreEqual(2, list.Count);
             Assert.AreEqual("1", list.First().Id);
@@ -50,15 +50,15 @@ namespace PerpetualEngine.Storage
         [Test]
         public void AddAllTest()
         {
-            var list = new JsonPersistingList<IdentifiableForTesting>(editGroup);
+            var list = new JsonPersistingList<TestItem>(editGroup);
             int addedCalledCount = 0;
             list.Added += delegate {
                 addedCalledCount++;
             };
 
-            var items = new List<IdentifiableForTesting>{
-                new IdentifiableForTesting("0"),
-                new IdentifiableForTesting("1"),
+            var items = new List<TestItem>{
+                new TestItem("0"),
+                new TestItem("1"),
             };
             list.Add(items);
 
@@ -67,7 +67,7 @@ namespace PerpetualEngine.Storage
             Assert.That(list[0].Id, Is.EqualTo("0"));
             Assert.That(list[1].Id, Is.EqualTo("1"));
 
-            list.Add(new IdentifiableForTesting("2"), new IdentifiableForTesting("3"));
+            list.Add(new TestItem("2"), new TestItem("3"));
             Assert.That(list.Count(), Is.EqualTo(4));
             Assert.That(addedCalledCount, Is.EqualTo(4));
             Assert.That(list[2].Id, Is.EqualTo("2"));

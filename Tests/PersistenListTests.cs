@@ -16,12 +16,12 @@ namespace PerpetualEngine.Storage
             editGroup = Guid.NewGuid().ToString();
         }
 
-        PersistentList<IdentifiableForTesting> BuildTestList()
+        PersistentList<TestItem> BuildTestList()
         {
-            var list = new PersistentList<IdentifiableForTesting>(editGroup);
-            list.Add(new IdentifiableForTesting("1"));
-            list.Add(new IdentifiableForTesting("2"));
-            list.Add(new IdentifiableForTesting("3"));
+            var list = new PersistentList<TestItem>(editGroup);
+            list.Add(new TestItem("1"));
+            list.Add(new TestItem("2"));
+            list.Add(new TestItem("3"));
             return list;
         }
 
@@ -29,7 +29,7 @@ namespace PerpetualEngine.Storage
         public void TestLoadingOfObjectsFromPersitence()
         {
             var list = BuildTestList();
-            list = new PersistentList<IdentifiableForTesting>(editGroup);
+            list = new PersistentList<TestItem>(editGroup);
             var i = 1;
             foreach (var a in list)
                 Assert.AreEqual(a.Id, i++.ToString());
@@ -53,7 +53,7 @@ namespace PerpetualEngine.Storage
             var list = BuildTestList();
             var storage = SimpleStorage.EditGroup(editGroup);
             storage.Put("2", "break data with id 2");
-            list = new PersistentList<IdentifiableForTesting>(editGroup);
+            list = new PersistentList<TestItem>(editGroup);
 
             int count = 0;
             foreach (var a in list)
@@ -78,11 +78,11 @@ namespace PerpetualEngine.Storage
         public void TestInsertingItems()
         {
             var list = BuildTestList();
-            list.Insert(1, new IdentifiableForTesting("x"));
+            list.Insert(1, new TestItem("x"));
             Assert.That(list.Count, Is.EqualTo(4));
             Assert.That(list[1].Id, Is.EqualTo("x"));
 
-            list.Insert(0, new IdentifiableForTesting("y"));
+            list.Insert(0, new TestItem("y"));
             Assert.That(list.Count, Is.EqualTo(5));
             Assert.That(list.First().Id, Is.EqualTo("y"));
         }
@@ -91,8 +91,8 @@ namespace PerpetualEngine.Storage
         public void TestLoadingInsertedItemFromPersistence()
         {
             var list = BuildTestList();
-            list.Insert(1, new IdentifiableForTesting("x"));
-            list = new PersistentList<IdentifiableForTesting>(editGroup);
+            list.Insert(1, new TestItem("x"));
+            list = new PersistentList<TestItem>(editGroup);
 
             Assert.That(list.Count, Is.EqualTo(4));
             Assert.That(list[1].Id, Is.EqualTo("x"));
@@ -100,13 +100,20 @@ namespace PerpetualEngine.Storage
     }
 
     [Serializable]
-    class IdentifiableForTesting : IIdentifiable
+    class TestItem : IIdentifiable
     {
         public string Id { get; set; }
+        public string Value { get; set; }
 
-        public IdentifiableForTesting(string id)
+        public TestItem(string id, string value = null)
         {
             Id = id;
+            Value = value ?? Id.ToLower();
+        }
+
+        public override string ToString()
+        {
+            return Id + Value;
         }
     }
 }
