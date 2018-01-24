@@ -10,5 +10,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Demo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Performance\Measurement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Performance\AddMeasurement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Performance\TestItem.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Performance\" />
   </ItemGroup>
 </Project>

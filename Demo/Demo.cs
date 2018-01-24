@@ -1,28 +1,34 @@
 ﻿using System;
-
+using System.Collections.Generic;
+using Demo.Performance;
 using Xamarin.Forms;
 
 namespace Demo
 {
     public class App : Application
     {
+        List<Measurement> measurements = new List<Measurement>{
+            new AddMeasurement(100,10),
+            new AddMeasurement(1000,10),
+            new AddMeasurement(2000,10),
+            new AddMeasurement(4000,10),
+        };
         public App()
         {
             // The root page of your application
-            var content = new ContentPage {
+            var contentPage = new ContentPage {
                 Title = "Demo",
-                Content = new StackLayout {
-                    VerticalOptions = LayoutOptions.Center,
-                    Children = {
-                        new Label {
-                            HorizontalTextAlignment = TextAlignment.Center,
-                            Text = "Welcome to Xamarin Forms!"
-                        }
-                    }
-                }
+            };
+            var content = new StackLayout {
+                VerticalOptions = LayoutOptions.Center,
             };
 
-            MainPage = new NavigationPage(content);
+            foreach (var m in measurements)
+                content.Children.Add(m.View);
+
+            contentPage.Content = content;
+
+            MainPage = new NavigationPage(contentPage);
         }
 
         protected override void OnStart()

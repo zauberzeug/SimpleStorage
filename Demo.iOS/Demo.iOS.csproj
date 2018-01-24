@@ -113,6 +113,12 @@
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\iOS\iOS.csproj">
+      <Project>{4D5FC392-58AB-4C28-91A2-5D5206158875}</Project>
+      <Name>iOS</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="..\Demo\Demo.projitems" Label="Shared" Condition="Exists('..\Demo\Demo.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.4.0.280\build\netstandard1.0\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.4.0.280\build\netstandard1.0\Xamarin.Forms.targets')" />

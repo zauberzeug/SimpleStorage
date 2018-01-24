@@ -7,6 +7,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using PerpetualEngine.Storage;
 
 namespace Demo.Droid
 {
@@ -21,7 +22,7 @@ namespace Demo.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
-
+            SimpleStorage.SetContext(this);
             LoadApplication(new App());
         }
     }
