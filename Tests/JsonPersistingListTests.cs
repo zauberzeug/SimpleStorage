@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 using NUnit.Framework;
 
 namespace PerpetualEngine.Storage
@@ -117,6 +118,52 @@ namespace PerpetualEngine.Storage
 
             collection.Clear();
             Assert.That(CollectionString, Is.EqualTo(""));
+        }
+
+        /// <summary>
+        /// Tests passing JSON settings with the example of auto type name handling.
+        /// </summary>
+        [Test]
+        public void JsonSettingsTests()
+        {
+            var settings = new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Auto };
+            var list = new JsonPersistingList<JsonTestItem>("types", settings);
+            list.Add(new JsonTestItem("A", "Value", new JsonTestContent("Content")));
+
+            list = new JsonPersistingList<JsonTestItem>("types", settings);
+            Assert.That(list[0].Id, Is.EqualTo("A"));
+            Assert.That(list[0].Value, Is.EqualTo("Value"));
+            Assert.That((list[0].Content as JsonTestContent).Value, Is.EqualTo("Content"));
+            list.Clear();
+
+            var list2 = new JsonPersistingList<TestItem>("types2", settings, typeof(TestItem));
+            list2.Add(new JsonTestItem("B", "Value2", new JsonTestContent("Content2")));
+
+            list2 = new JsonPersistingList<TestItem>("types2", settings, typeof(TestItem));
+            Assert.That(list2[0].Id, Is.EqualTo("B"));
+            Assert.That(list2[0].Value, Is.EqualTo("Value2"));
+            Assert.That(((list2[0] as JsonTestItem).Content as JsonTestContent).Value, Is.EqualTo("Content2"));
+            list2.Clear();
+        }
+
+        class JsonTestItem : TestItem
+        {
+            public JsonTestItem(string id, string value, object content) : base(id, value)
+            {
+                Content = content;
+            }
+
+            public object Content { get; set; }
+        }
+
+        class JsonTestContent
+        {
+            public JsonTestContent(string value)
+            {
+                Value = value;
+            }
+
+            public string Value { get; set; }
         }
     }
 }
