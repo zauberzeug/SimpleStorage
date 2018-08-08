@@ -18,14 +18,14 @@ namespace PerpetualEngine.Storage
         [TearDown]
         public void TearDown()
         {
-            (storage as DesktopSimpleStorage).Clear();
+            DesktopSimpleStorage.Clear();
         }
 
         [Serializable]
-        class ClassWithNonSerializableMembers: IDeserializationCallback
+        class ClassWithNonSerializableMembers : IDeserializationCallback
         {
-            [field:NonSerialized]
-            public event Action TestAction = delegate {};
+            [field: NonSerialized]
+            public event Action TestAction = delegate { };
 
             [NonSerialized]
             public int TestInteger = 1;

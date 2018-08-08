@@ -19,12 +19,19 @@ namespace PerpetualEngine.Storage
     /// </summary>
     public class DesktopSimpleStorage : SimpleStorage
     {
-        static  Dictionary<string, string> Database = new Dictionary<string, string>();
+        static Dictionary<string, string> Database = new Dictionary<string, string>();
 
         static string lockObject = "lock";
 
         public DesktopSimpleStorage(string groupName) : base(groupName)
         {
+        }
+
+        public static void Clear()
+        {
+            lock (lockObject) {
+                Database.Clear();
+            }
         }
 
         /// <summary>
@@ -70,11 +77,5 @@ namespace PerpetualEngine.Storage
             }
         }
 
-        public void Clear()
-        {
-            lock (lockObject) {
-                Database.Clear();
-            }
-        }
     }
 }
