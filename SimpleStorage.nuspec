@@ -10,6 +10,10 @@
         <licenseUrl>https://github.com/perpetual-mobile/SimpleStorage/blob/master/License.md</licenseUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Simple platform independent key/value storage for iOS and Android (Xamarin)</description>
+        <releaseNotes>
+          Version 1.4.18
+              - Add test functionality to check for stored keys
+        </releaseNotes>
         <copyright>Copyright 2015</copyright>
         <tags>storage persistence preferences key value serialization ios android xamarin</tags>
         <dependencies>

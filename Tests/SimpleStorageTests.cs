@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using NUnit.Framework;
+using System.Linq;
 
 namespace PerpetualEngine.Storage
 {
@@ -99,6 +100,52 @@ namespace PerpetualEngine.Storage
             Assert.IsNull(storage.Get<TimeSpan?>("test"));
             Assert.AreEqual(default(TimeSpan), storage.Get<TimeSpan>("test"));
         }
+
+        [Test]
+        public void StoredKeys_AreEmpty_Initial()
+        {
+            Assert.That(DesktopSimpleStorage.StoredKeys, Is.Empty);
+        }
+
+        [Test]
+        public void StoredKeys_AreEmpty_AfterClear()
+        {
+            storage.Put("key", "value");
+            DesktopSimpleStorage.Clear();
+            Assert.That(DesktopSimpleStorage.StoredKeys, Is.Empty);
+        }
+
+        [Test]
+        public void StoredKeys_AreEmpty_AfterDelete()
+        {
+            storage.Put("testkey", "testvalue");
+            storage.Delete("testkey");
+            Assert.That(DesktopSimpleStorage.StoredKeys, Is.Empty);
+        }
+
+        [Test]
+        public void StoredKeys_HasEntry_AfterPut()
+        {
+            storage.Put("testKey", "test");
+            var entries = DesktopSimpleStorage.StoredKeys;
+            Assert.That(entries, Has.Count.EqualTo(1));
+            Assert.That(entries.First(), Is.StringEnding("_testKey"));
+        }
+
+        [Test]
+        public void StoredKeys_HasEntries_FromAllEditGroups()
+        {
+            var firstStorage = SimpleStorage.EditGroup("firstEditGroup");
+            firstStorage.Put("firstKey", "firstValue");
+
+            var secondStorage = SimpleStorage.EditGroup("secondEditGroup");
+            secondStorage.Put("secondKey", "secondValue");
+
+            var entries = DesktopSimpleStorage.StoredKeys;
+            Assert.That(entries, Has.Count.EqualTo(2));
+
+            Assert.That(entries.Contains("firstEditGroup_firstKey"));
+            Assert.That(entries.Contains("secondEditGroup_secondKey"));
+        }
     }
 }
-

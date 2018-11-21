@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PerpetualEngine.Storage
 {
@@ -77,5 +78,14 @@ namespace PerpetualEngine.Storage
             }
         }
 
+        public static List<string> StoredKeys {
+            get {
+                List<string> storedKeys;
+                lock (lockObject) {
+                    storedKeys = Database.Keys.ToList();
+                }
+                return storedKeys;
+            }
+        }
     }
 }
