@@ -15,7 +15,6 @@ echo "setting version to $VERSION"
 
 XAMARIN_TOOLS=/Library/Frameworks/Mono.framework/Versions/Current/Commands/
 NUGET="$XAMARIN_TOOLS/nuget"
-XBUILD="$XAMARIN_TOOLS/xbuild"
 MONO="$XAMARIN_TOOLS/mono"
 
 ls $XAMARIN_TOOLS
@@ -42,9 +41,9 @@ function publishNuGet {
 
 $NUGET restore SimpleStorage.sln || exit 1
 
-$XBUILD /p:Configuration=Release Droid/Droid.csproj || exit 1
-$XBUILD /p:Configuration=Release iOS/iOS.csproj || exit 1
-$XBUILD /p:Configuration=Release Tests/Tests.csproj || exit 1
+msbuild /p:Configuration=Release /t:PackageForAndroid Droid/Droid.csproj || exit 1
+msbuild /p:Configuration=Release /p:BuildIpa=true /target:Build iOS/iOS.csproj || exit 1
+msbuild /p:Configuration=Release Tests/Tests.csproj || exit 1
 
 pushd packages && nuget install NUnit.Console && popd
 export MONO_IOMAP=all # this fixes slash, backslash path seperator problems within nunit test runner
