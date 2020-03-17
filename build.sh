@@ -29,14 +29,12 @@ function packNuGet {
 }
 
 function publishNuGet {
-#  git add $1
-#  git commit -am "nuget package ${VERSION}" || exit 1
+  nuget push $1 -Source https://www.nuget.org/api/v2/package || exit 1
+}
+
+function createTag {
   git tag -a $VERSION -m ''  || exit 1
-
-#  git push
-  git push --tags
-
-  nuget push $1 -Source https://www.nuget.org/api/v2/package
+  git push --tags || exit 1
 }
 
 $NUGET restore SimpleStorage.sln || exit 1
@@ -50,5 +48,13 @@ export MONO_IOMAP=all # this fixes slash, backslash path seperator problems with
 NUNIT="mono packages/NUnit.ConsoleRunner.*/tools/nunit3-console.exe"
 $NUNIT -config=Release "Tests/Tests.csproj" || exit 1
 
+createTag
+
 packNuGet SimpleStorage.nuspec
+
+if [[ $SKIP_DEPLOYMENT == True ]]; then
+  echo "Skipping deployment"
+  exit 0
+fi
+
 publishNuGet SimpleStorage.$VERSION.nupkg
