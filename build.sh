@@ -48,6 +48,10 @@ export MONO_IOMAP=all # this fixes slash, backslash path seperator problems with
 NUNIT="mono packages/NUnit.ConsoleRunner.*/tools/nunit3-console.exe"
 $NUNIT -config=Release "Tests/Tests.csproj" || exit 1
 
+# debugging tag push problems
+whoami
+git config --list
+
 createTag
 
 packNuGet SimpleStorage.nuspec
