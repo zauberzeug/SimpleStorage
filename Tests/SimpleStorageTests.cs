@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace PerpetualEngine.Storage
 {
@@ -146,6 +147,38 @@ namespace PerpetualEngine.Storage
 
             Assert.That(entries.Contains("firstEditGroup_firstKey"));
             Assert.That(entries.Contains("secondEditGroup_secondKey"));
+        }
+
+        [Test]
+        public void CanChangeTypeInformation()
+        {
+            var one = new One() { MyValue = "abcde" };
+            storage.Binder = new Binder();
+            storage.Put("one", one);
+            var two = storage.Get<Two>("one");
+            Assert.That(two, Is.Not.Null);
+            Assert.That(two.MyValue, Is.EqualTo("abcde"));
+        }
+
+        [Serializable]
+        class One
+        {
+            public string MyValue { get; set; }
+        }
+
+        [Serializable]
+        class Two
+        {
+            public string MyValue { get; set; }
+        }
+
+        class Binder : SerializationBinder
+        {
+            public override Type BindToType(string assemblyName, string typeName)
+            {
+                typeName = typeName.Replace("One", "Two");
+                return Type.GetType(string.Format("{0}, {1}", typeName, assemblyName));
+            }
         }
     }
 }
