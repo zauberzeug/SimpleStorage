@@ -4,3 +4,4 @@ bin/
 obj/
 *.userprefs
 .vs/
+Resource.designer.cs
