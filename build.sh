@@ -39,8 +39,8 @@ function createTag {
 
 $NUGET restore SimpleStorage.sln || exit 1
 
-msbuild /p:Configuration=Release /t:PackageForAndroid Droid/Droid.csproj || exit 1
-msbuild /p:Configuration=Release /p:BuildIpa=true /target:Build iOS/iOS.csproj || exit 1
+msbuild /p:Configuration=Release Droid/Droid.csproj || exit 1
+msbuild /p:Configuration=Release iOS/iOS.csproj || exit 1
 msbuild /p:Configuration=Release Tests/Tests.csproj || exit 1
 
 pushd packages && nuget install NUnit.Console && popd
