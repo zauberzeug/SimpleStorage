@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PerpetualEngine.Storage
 {
-    public abstract partial class SimpleStorage
+    public abstract partial class SimpleStorage : IStorage
     {
         public SerializationBinder Binder { get; set; }
 

@@ -16,5 +16,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)PersistentStrings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)JsonObservableCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PersistentObservableStrings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IStorage.cs" />
   </ItemGroup>
 </Project>
