@@ -9,7 +9,7 @@ fi
 git fetch --tags
 
 # get latest git tag and increase by one (see https://stackoverflow.com/questions/4485399/how-can-i-bump-a-version-number-using-bash)
-VERSION=`git describe --abbrev=0 | awk -F. '/[0-9]+\./{$NF+=1;OFS=".";print}'`
+VERSION=`git describe --abbrev=0 | awk -F. '/[0-9]+\./{$NF++;print}' OFS=.`
 
 echo "setting version to $VERSION"
 
