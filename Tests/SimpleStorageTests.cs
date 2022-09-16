@@ -130,7 +130,7 @@ namespace PerpetualEngine.Storage
             storage.Put("testKey", "test");
             var entries = DesktopSimpleStorage.StoredKeys;
             Assert.That(entries, Has.Count.EqualTo(1));
-            Assert.That(entries.First(), Is.StringEnding("_testKey"));
+            Assert.That(entries.First(), Does.EndWith("_testKey"));
         }
 
         [Test]
