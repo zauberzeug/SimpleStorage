@@ -43,9 +43,10 @@ msbuild /p:Configuration=Release Droid/Droid.csproj || exit 1
 msbuild /p:Configuration=Release iOS/iOS.csproj || exit 1
 msbuild /p:Configuration=Release Tests/Tests.csproj || exit 1
 
-pushd packages && nuget install NUnit.Console && popd
+NUNIT_RUNNER_VERSION=3.11.1
+pushd packages && nuget install NUnit.Console -Version $NUNIT_RUNNER_VERSION && popd
 export MONO_IOMAP=all # this fixes slash, backslash path seperator problems within nunit test runner
-NUNIT="mono packages/NUnit.ConsoleRunner.*/tools/nunit3-console.exe"
+NUNIT="mono packages/NUnit.ConsoleRunner.$NUNIT_RUNNER_VERSION/tools/nunit3-console.exe"
 $NUNIT -config=Release "Tests/Tests.csproj" || exit 1
 
 createTag
